@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebDesk — Welcome</title>
+  <meta name="description" content="WebDesk: a portfolio that looks and feels like a desktop.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="desktop" id="desktop">
+
+    <!-- Desktop icons -->
+    <ul class="icons" aria-label="Desktop">
+      <li>
+        <button class="icon" data-name="Projects" type="button">
+          <span class="icon__img icon__img--folder" aria-hidden="true"></span>
+          <span class="icon__label">Projects</span>
+        </button>
+      </li>
+      <li>
+        <button class="icon" data-name="About me" type="button">
+          <span class="icon__img icon__img--file" aria-hidden="true"></span>
+          <span class="icon__label">about-me.txt</span>
+        </button>
+      </li>
+      <li>
+        <button class="icon" data-name="Contact" type="button">
+          <span class="icon__img icon__img--mail" aria-hidden="true"></span>
+          <span class="icon__label">Contact</span>
+        </button>
+      </li>
+      <li>
+        <button class="icon" data-name="Trash" type="button">
+          <span class="icon__img icon__img--trash" aria-hidden="true"></span>
+          <span class="icon__label">Trash</span>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Welcome window -->
+    <section class="window" id="welcome" aria-labelledby="welcome-title">
+      <header class="window__bar" data-drag-handle>
+        <div class="window__controls">
+          <button class="dot dot--close" type="button" aria-label="Close window" data-action="close"></button>
+          <button class="dot dot--min" type="button" aria-label="Minimize window" data-action="close"></button>
+          <button class="dot dot--max" type="button" aria-label="Wiggle window" data-action="wiggle"></button>
+        </div>
+        <h1 class="window__title" id="welcome-title">welcome.txt</h1>
+      </header>
+
+      <div class="window__body">
+        <p class="hello">
+          <span id="typed" aria-live="polite"></span><span class="caret" aria-hidden="true"></span>
+        </p>
+
+        <div class="intro" id="intro">
+          <p>
+            Welcome to <strong>WebDesk</strong> — my portfolio, disguised as a desktop.
+            Every project lives in a folder. Click around, open things, poke at stuff.
+            Nothing here will crash. <em>Probably.</em>
+          </p>
+
+          <ul class="facts">
+            <li><span aria-hidden="true">📁</span> Projects are folders</li>
+            <li><span aria-hidden="true">🖱️</span> Windows are draggable</li>
+            <li><span aria-hidden="true">☕</span> Built with HTML, CSS &amp; JS</li>
+          </ul>
+
+          <div class="actions">
+            <button class="btn btn--primary" type="button" id="enter">Open my desktop →</button>
+            <button class="btn" type="button" id="hi">Say hi 👋</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <!-- Taskbar -->
+  <footer class="taskbar">
+    <span class="taskbar__logo">🖥️ WebDesk</span>
+    <button class="taskbar__item" type="button" id="task-welcome" aria-pressed="true">welcome.txt</button>
+    <time class="taskbar__clock" id="clock"></time>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
