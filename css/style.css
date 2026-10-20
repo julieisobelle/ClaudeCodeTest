@@ -1,0 +1,464 @@
+/* ==========================================================================
+   WebDesk — landing page
+   ========================================================================== */
+
+:root {
+  --bg-1: #ffd6a5;
+  --bg-2: #ffadad;
+  --bg-3: #bdb2ff;
+  --ink: #1d1b26;
+  --ink-soft: #55516a;
+  --paper: #fffdf8;
+  --line: #1d1b26;
+  --accent: #6c4cff;
+  --accent-ink: #ffffff;
+  --taskbar: rgba(255, 253, 248, 0.75);
+  --shadow: 6px 6px 0 var(--line);
+  --radius: 14px;
+  --font: "Space Grotesk", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-1: #2b1f4a;
+    --bg-2: #3d1f3a;
+    --bg-3: #13233f;
+    --ink: #f4f1ff;
+    --ink-soft: #b7b1cf;
+    --paper: #1e1b2b;
+    --line: #000000;
+    --accent: #9b85ff;
+    --accent-ink: #120d26;
+    --taskbar: rgba(30, 27, 43, 0.8);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+  background-attachment: fixed;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dotted "wallpaper" texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Desktop ---------- */
+
+.desktop {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ---------- Icons ---------- */
+
+.icons {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: max-content;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 92px;
+  padding: 8px 4px;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 10px;
+}
+
+.icon:hover,
+.icon.is-selected {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: var(--line);
+}
+
+.icon__img {
+  width: 48px;
+  height: 40px;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 var(--line);
+  position: relative;
+  transition: transform 0.15s ease;
+}
+
+.icon:hover .icon__img {
+  transform: translateY(-3px) rotate(-3deg);
+}
+
+.icon__img--folder {
+  background: #ffd166;
+  border-top-left-radius: 0;
+}
+.icon__img--folder::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: -2px;
+  width: 20px;
+  height: 8px;
+  background: #ffd166;
+  border: 2px solid var(--line);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.icon__img--file {
+  width: 36px;
+  height: 44px;
+  background:
+    repeating-linear-gradient(#fff 0 6px, #cfcaf5 6px 8px) 6px 10px / 22px 26px no-repeat,
+    #fff;
+}
+
+.icon__img--mail {
+  background:
+    linear-gradient(to bottom right, transparent 49%, var(--line) 49% 51%, transparent 51%) left / 50% 100% no-repeat,
+    linear-gradient(to bottom left, transparent 49%, var(--line) 49% 51%, transparent 51%) right / 50% 100% no-repeat,
+    #a0e7e5;
+}
+
+.icon__img--trash {
+  width: 34px;
+  height: 40px;
+  background: repeating-linear-gradient(90deg, #d9d9e3 0 6px, #b9b9c9 6px 8px);
+  border-radius: 2px 2px 8px 8px;
+}
+
+.icon__label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  white-space: nowrap;
+}
+
+/* ---------- Window ---------- */
+
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(560px, calc(100vw - 32px));
+  transform: translate(-50%, -50%);
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: pop-in 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.window.is-dragged {
+  transform: none;
+}
+
+.window.is-hidden {
+  display: none;
+}
+
+.window.is-wiggling {
+  animation: wiggle 0.5s ease;
+}
+
+.window__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--line);
+  background: var(--bg-3);
+  border-radius: calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.window__bar:active {
+  cursor: grabbing;
+}
+
+.window__controls {
+  display: flex;
+  gap: 7px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+}
+.dot--close { background: #ff6b6b; }
+.dot--min   { background: #ffd166; }
+.dot--max   { background: #06d6a0; }
+
+.window__title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.window__body {
+  padding: 28px 28px 30px;
+}
+
+/* ---------- Content ---------- */
+
+.hello {
+  margin: 0 0 18px;
+  min-height: 1.2em;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.5ch;
+  height: 1em;
+  margin-left: 4px;
+  vertical-align: -0.12em;
+  background: var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+
+.intro {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.intro.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.intro p {
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.intro strong {
+  color: var(--ink);
+}
+
+.facts {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.facts li {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  padding: 11px 18px;
+  font-weight: 700;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 var(--line);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--line);
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--line);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 10px;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- Taskbar ---------- */
+
+.taskbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: var(--taskbar);
+  backdrop-filter: blur(10px);
+  border-top: 2px solid var(--line);
+}
+
+.taskbar__logo {
+  font-weight: 700;
+}
+
+.taskbar__item {
+  padding: 4px 12px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  background: transparent;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+}
+
+.taskbar__item[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.taskbar__clock {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes pop-in {
+  from { opacity: 0; scale: 0.85; }
+  to   { opacity: 1; scale: 1; }
+}
+
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  25%      { rotate: -2deg; }
+  75%      { rotate: 2deg; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 640px) {
+  .icons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 12px;
+    gap: 4px;
+    justify-content: space-between;
+  }
+
+  .icon {
+    width: 80px;
+  }
+
+  .icon__label {
+    font-size: 0.75rem;
+    padding: 1px 4px;
+  }
+
+  .window {
+    top: auto;
+    bottom: 16px;
+    transform: translateX(-50%);
+  }
+
+  .window__body {
+    padding: 20px;
+  }
+
+  .taskbar__logo {
+    display: none;
+  }
+}
