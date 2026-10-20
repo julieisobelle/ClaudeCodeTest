@@ -6,7 +6,7 @@ const GREETING = `Hi, I'm ${NAME} 👋`;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const welcome = document.getElementById("welcome");
-const taskWelcome = document.getElementById("task-welcome");
+const taskWelcome = document.getElementById("taskWelcome");
 const typed = document.getElementById("typed");
 const intro = document.getElementById("intro");
 const toast = document.getElementById("toast");
@@ -36,7 +36,7 @@ function typeGreeting(text, el, done) {
   setTimeout(tick, 500);
 }
 
-typeGreeting(GREETING, typed, () => intro.classList.add("is-visible"));
+typeGreeting(GREETING, typed, () => intro.classList.add("isVisible"));
 
 /* ---------- Toast ---------- */
 
@@ -44,9 +44,9 @@ let toastTimer;
 
 function showToast(message) {
   toast.textContent = message;
-  toast.classList.add("is-visible");
+  toast.classList.add("isVisible");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2600);
+  toastTimer = setTimeout(() => toast.classList.remove("isVisible"), 2600);
 }
 
 /* ---------- Clock ---------- */
@@ -63,7 +63,7 @@ setInterval(updateClock, 10_000);
 /* ---------- Window controls ---------- */
 
 function setWindowOpen(open) {
-  welcome.classList.toggle("is-hidden", !open);
+  welcome.classList.toggle("isHidden", !open);
   taskWelcome.setAttribute("aria-pressed", String(open));
 }
 
@@ -74,15 +74,15 @@ welcome.addEventListener("click", (e) => {
     setWindowOpen(false);
     showToast("Minimized! Click welcome.txt in the taskbar to bring it back.");
   } else if (action === "wiggle") {
-    welcome.classList.remove("is-wiggling");
+    welcome.classList.remove("isWiggling");
     void welcome.offsetWidth; // restart the animation
-    welcome.classList.add("is-wiggling");
+    welcome.classList.add("isWiggling");
     showToast("Full screen is coming in v2 😅");
   }
 });
 
 taskWelcome.addEventListener("click", () => {
-  setWindowOpen(welcome.classList.contains("is-hidden"));
+  setWindowOpen(welcome.classList.contains("isHidden"));
 });
 
 /* ---------- Dragging ---------- */
@@ -98,7 +98,7 @@ handle.addEventListener("pointerdown", (e) => {
   const offsetY = e.clientY - rect.top;
 
   // Switch from centered positioning to explicit coordinates
-  welcome.classList.add("is-dragged");
+  welcome.classList.add("isDragged");
   welcome.style.left = `${rect.left - desktop.left}px`;
   welcome.style.top = `${rect.top - desktop.top}px`;
   welcome.style.bottom = "auto";
@@ -138,8 +138,8 @@ const iconMessages = {
 
 icons.forEach((icon) => {
   icon.addEventListener("click", () => {
-    icons.forEach((i) => i.classList.remove("is-selected"));
-    icon.classList.add("is-selected");
+    icons.forEach((i) => i.classList.remove("isSelected"));
+    icon.classList.add("isSelected");
     showToast(iconMessages[icon.dataset.name]);
   });
 });

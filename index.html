@@ -17,42 +17,42 @@
     <ul class="icons" aria-label="Desktop">
       <li>
         <button class="icon" data-name="Projects" type="button">
-          <span class="icon__img icon__img--folder" aria-hidden="true"></span>
-          <span class="icon__label">Projects</span>
+          <span class="iconImg iconImgFolder" aria-hidden="true"></span>
+          <span class="iconLabel">Projects</span>
         </button>
       </li>
       <li>
         <button class="icon" data-name="About me" type="button">
-          <span class="icon__img icon__img--file" aria-hidden="true"></span>
-          <span class="icon__label">about-me.txt</span>
+          <span class="iconImg iconImgFile" aria-hidden="true"></span>
+          <span class="iconLabel">about-me.txt</span>
         </button>
       </li>
       <li>
         <button class="icon" data-name="Contact" type="button">
-          <span class="icon__img icon__img--mail" aria-hidden="true"></span>
-          <span class="icon__label">Contact</span>
+          <span class="iconImg iconImgMail" aria-hidden="true"></span>
+          <span class="iconLabel">Contact</span>
         </button>
       </li>
       <li>
         <button class="icon" data-name="Trash" type="button">
-          <span class="icon__img icon__img--trash" aria-hidden="true"></span>
-          <span class="icon__label">Trash</span>
+          <span class="iconImg iconImgTrash" aria-hidden="true"></span>
+          <span class="iconLabel">Trash</span>
         </button>
       </li>
     </ul>
 
     <!-- Welcome window -->
-    <section class="window" id="welcome" aria-labelledby="welcome-title">
-      <header class="window__bar" data-drag-handle>
-        <div class="window__controls">
-          <button class="dot dot--close" type="button" aria-label="Close window" data-action="close"></button>
-          <button class="dot dot--min" type="button" aria-label="Minimize window" data-action="close"></button>
-          <button class="dot dot--max" type="button" aria-label="Wiggle window" data-action="wiggle"></button>
+    <section class="window" id="welcome" aria-labelledby="welcomeTitle">
+      <header class="windowBar" data-drag-handle>
+        <div class="windowControls">
+          <button class="dot dotClose" type="button" aria-label="Close window" data-action="close"></button>
+          <button class="dot dotMin" type="button" aria-label="Minimize window" data-action="close"></button>
+          <button class="dot dotMax" type="button" aria-label="Wiggle window" data-action="wiggle"></button>
         </div>
-        <h1 class="window__title" id="welcome-title">welcome.txt</h1>
+        <h1 class="windowTitle" id="welcomeTitle">welcome.txt</h1>
       </header>
 
-      <div class="window__body">
+      <div class="windowBody">
         <p class="hello">
           <span id="typed" aria-live="polite"></span><span class="caret" aria-hidden="true"></span>
         </p>
@@ -71,7 +71,7 @@
           </ul>
 
           <div class="actions">
-            <button class="btn btn--primary" type="button" id="enter">Open my desktop →</button>
+            <button class="btn btnPrimary" type="button" id="enter">Open my desktop →</button>
             <button class="btn" type="button" id="hi">Say hi 👋</button>
           </div>
         </div>
@@ -84,9 +84,9 @@
 
   <!-- Taskbar -->
   <footer class="taskbar">
-    <span class="taskbar__logo">🖥️ WebDesk</span>
-    <button class="taskbar__item" type="button" id="task-welcome" aria-pressed="true">welcome.txt</button>
-    <time class="taskbar__clock" id="clock"></time>
+    <span class="taskbarLogo">🖥️ WebDesk</span>
+    <button class="taskbarItem" type="button" id="taskWelcome" aria-pressed="true">welcome.txt</button>
+    <time class="taskbarClock" id="clock"></time>
   </footer>
 
   <script src="js/main.js"></script>
