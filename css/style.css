@@ -3,15 +3,15 @@
    ========================================================================== */
 
 :root {
-  --bg-1: #ffd6a5;
-  --bg-2: #ffadad;
-  --bg-3: #bdb2ff;
+  --bg1: #ffd6a5;
+  --bg2: #ffadad;
+  --bg3: #bdb2ff;
   --ink: #1d1b26;
-  --ink-soft: #55516a;
+  --inkSoft: #55516a;
   --paper: #fffdf8;
   --line: #1d1b26;
   --accent: #6c4cff;
-  --accent-ink: #ffffff;
+  --accentInk: #ffffff;
   --taskbar: rgba(255, 253, 248, 0.75);
   --shadow: 6px 6px 0 var(--line);
   --radius: 14px;
@@ -21,15 +21,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-1: #2b1f4a;
-    --bg-2: #3d1f3a;
-    --bg-3: #13233f;
+    --bg1: #2b1f4a;
+    --bg2: #3d1f3a;
+    --bg3: #13233f;
     --ink: #f4f1ff;
-    --ink-soft: #b7b1cf;
+    --inkSoft: #b7b1cf;
     --paper: #1e1b2b;
     --line: #000000;
     --accent: #9b85ff;
-    --accent-ink: #120d26;
+    --accentInk: #120d26;
     --taskbar: rgba(30, 27, 43, 0.8);
   }
 }
@@ -49,7 +49,7 @@ body {
 body {
   font-family: var(--font);
   color: var(--ink);
-  background: linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+  background: linear-gradient(135deg, var(--bg1), var(--bg2) 50%, var(--bg3));
   background-attachment: fixed;
   overflow: hidden;
   display: flex;
@@ -110,12 +110,12 @@ button {
 }
 
 .icon:hover,
-.icon.is-selected {
+.icon.isSelected {
   background: rgba(255, 255, 255, 0.35);
   border-color: var(--line);
 }
 
-.icon__img {
+.iconImg {
   width: 48px;
   height: 40px;
   border: 2px solid var(--line);
@@ -125,15 +125,15 @@ button {
   transition: transform 0.15s ease;
 }
 
-.icon:hover .icon__img {
+.icon:hover .iconImg {
   transform: translateY(-3px) rotate(-3deg);
 }
 
-.icon__img--folder {
+.iconImgFolder {
   background: #ffd166;
   border-top-left-radius: 0;
 }
-.icon__img--folder::before {
+.iconImgFolder::before {
   content: "";
   position: absolute;
   top: -9px;
@@ -146,7 +146,7 @@ button {
   border-radius: 4px 4px 0 0;
 }
 
-.icon__img--file {
+.iconImgFile {
   width: 36px;
   height: 44px;
   background:
@@ -154,21 +154,21 @@ button {
     #fff;
 }
 
-.icon__img--mail {
+.iconImgMail {
   background:
     linear-gradient(to bottom right, transparent 49%, var(--line) 49% 51%, transparent 51%) left / 50% 100% no-repeat,
     linear-gradient(to bottom left, transparent 49%, var(--line) 49% 51%, transparent 51%) right / 50% 100% no-repeat,
     #a0e7e5;
 }
 
-.icon__img--trash {
+.iconImgTrash {
   width: 34px;
   height: 40px;
   background: repeating-linear-gradient(90deg, #d9d9e3 0 6px, #b9b9c9 6px 8px);
   border-radius: 2px 2px 8px 8px;
 }
 
-.icon__label {
+.iconLabel {
   font-size: 0.85rem;
   font-weight: 500;
   padding: 1px 6px;
@@ -190,39 +190,39 @@ button {
   border: 2px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  animation: pop-in 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  animation: popIn 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
 }
 
-.window.is-dragged {
+.window.isDragged {
   transform: none;
 }
 
-.window.is-hidden {
+.window.isHidden {
   display: none;
 }
 
-.window.is-wiggling {
+.window.isWiggling {
   animation: wiggle 0.5s ease;
 }
 
-.window__bar {
+.windowBar {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
   border-bottom: 2px solid var(--line);
-  background: var(--bg-3);
+  background: var(--bg3);
   border-radius: calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
   cursor: grab;
   user-select: none;
   touch-action: none;
 }
 
-.window__bar:active {
+.windowBar:active {
   cursor: grabbing;
 }
 
-.window__controls {
+.windowControls {
   display: flex;
   gap: 7px;
 }
@@ -234,18 +234,18 @@ button {
   border-radius: 50%;
   border: 2px solid var(--line);
 }
-.dot--close { background: #ff6b6b; }
-.dot--min   { background: #ffd166; }
-.dot--max   { background: #06d6a0; }
+.dotClose { background: #ff6b6b; }
+.dotMin   { background: #ffd166; }
+.dotMax   { background: #06d6a0; }
 
-.window__title {
+.windowTitle {
   margin: 0;
   font-family: var(--mono);
   font-size: 0.9rem;
   font-weight: 500;
 }
 
-.window__body {
+.windowBody {
   padding: 28px 28px 30px;
 }
 
@@ -275,7 +275,7 @@ button {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.intro.is-visible {
+.intro.isVisible {
   opacity: 1;
   transform: none;
 }
@@ -284,7 +284,7 @@ button {
   margin: 0 0 18px;
   font-size: 1.05rem;
   line-height: 1.6;
-  color: var(--ink-soft);
+  color: var(--inkSoft);
 }
 
 .intro strong {
@@ -334,9 +334,9 @@ button {
   box-shadow: 0 0 0 var(--line);
 }
 
-.btn--primary {
+.btnPrimary {
   background: var(--accent);
-  color: var(--accent-ink);
+  color: var(--accentInk);
 }
 
 /* ---------- Toast ---------- */
@@ -358,7 +358,7 @@ button {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.toast.is-visible {
+.toast.isVisible {
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -376,11 +376,11 @@ button {
   border-top: 2px solid var(--line);
 }
 
-.taskbar__logo {
+.taskbarLogo {
   font-weight: 700;
 }
 
-.taskbar__item {
+.taskbarItem {
   padding: 4px 12px;
   font-family: var(--mono);
   font-size: 0.8rem;
@@ -389,12 +389,12 @@ button {
   border-radius: 6px;
 }
 
-.taskbar__item[aria-pressed="true"] {
+.taskbarItem[aria-pressed="true"] {
   background: var(--accent);
-  color: var(--accent-ink);
+  color: var(--accentInk);
 }
 
-.taskbar__clock {
+.taskbarClock {
   margin-left: auto;
   font-family: var(--mono);
   font-size: 0.85rem;
@@ -402,7 +402,7 @@ button {
 
 /* ---------- Animations ---------- */
 
-@keyframes pop-in {
+@keyframes popIn {
   from { opacity: 0; scale: 0.85; }
   to   { opacity: 1; scale: 1; }
 }
@@ -443,7 +443,7 @@ button {
     width: 80px;
   }
 
-  .icon__label {
+  .iconLabel {
     font-size: 0.75rem;
     padding: 1px 4px;
   }
@@ -454,11 +454,11 @@ button {
     transform: translateX(-50%);
   }
 
-  .window__body {
+  .windowBody {
     padding: 20px;
   }
 
-  .taskbar__logo {
+  .taskbarLogo {
     display: none;
   }
 }
